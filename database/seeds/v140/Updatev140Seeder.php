@@ -1,0 +1,16 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class Updatev140Seeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->call(RoleHasPermissionTableV140Seeder::class);
+    }
+}
