@@ -20,7 +20,7 @@
     <div class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <!-- <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6">
                 <div class="small-box bg-white shadow-sm">
                     <div class="inner">
                         <h3 style="color: #9d4399" >{{$appointmentsCount}}</h3>
@@ -33,9 +33,9 @@
                     <a href="{{route('appointments.index')}}" class="small-box-footer">{{trans('lang.dashboard_more_info')}}
                         <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-            </div> -->
+            </div>
             <!-- ./col -->
-            <!-- <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-6">
                 <div class="small-box bg-white shadow-sm">
                     <div class="inner">
                         @if(setting('currency_right', false) != false)
@@ -52,7 +52,7 @@
                     <a href="{{route('earnings.index')}}" class="small-box-footer">{{trans('lang.dashboard_more_info')}}
                         <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-            </div> -->
+            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->

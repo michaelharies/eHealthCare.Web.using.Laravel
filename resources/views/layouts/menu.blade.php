@@ -5,7 +5,7 @@
             <p>{{trans('lang.dashboard')}}</p></a>
     </li>
 @endcan
-<!-- 
+
 @can('modules.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('modules*') ? 'active' : '' }}" href="{!! route('modules.index') !!}">@if($icons)
@@ -25,7 +25,7 @@
         <a class="nav-link {{ Request::is('favorites*') ? 'active' : '' }}" href="{!! route('favorites.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-heart"></i>@endif<p>{{trans('lang.favorite_plural')}}</p></a>
     </li>
-@endcan -->
+@endcan
 
 
 
@@ -44,19 +44,19 @@
                 <a class="nav-link {{ Request::is('clinic*') ? 'active' : '' }}" href="{!! route('clinics.index') !!}">@if($icons)
                         <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.clinic_plural')}}</p></a>
             </li>
-            <!-- @can('requestedClinics.index')
+            @can('requestedClinics.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('requestedClinics*') ? 'active' : '' }}" href="{!! route('requestedClinics.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.requested_clinics_plural')}}</p></a>
                 </li>
-            @endcan -->
+            @endcan
             @can('clinicLevels.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('clinicLevels*') ? 'active' : '' }}" href="{!! route('clinicLevels.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-list-alt"></i>@endif<p>{{trans('lang.clinic_level_plural')}}</p></a>
                 </li>
             @endcan
-            <!-- @can('galleries.index')
+            @can('galleries.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('galleries*') ? 'active' : '' }}" href="{!! route('galleries.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-image"></i>@endif<p>{{trans('lang.gallery_plural')}}</p></a>
@@ -67,7 +67,7 @@
                     <a class="nav-link {{ Request::is('awards*') ? 'active' : '' }}" href="{!! route('awards.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-trophy"></i>@endif<p>{{trans('lang.award_plural')}}</p></a>
                 </li>
-            @endcan -->
+            @endcan
             @can('clinicReviews.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('clinicReviews*') ? 'active' : '' }}" href="{!! route('clinicReviews.index') !!}">@if($icons)<i class="nav-icon fas fa-comments"></i>@endif<p>{{trans('lang.clinic_review_plural')}}</p></a>
@@ -78,12 +78,12 @@
     </li>
 @endcan
 
-<!-- @can('specialities.index')
+@can('specialities.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('specialities*') ? 'active' : '' }}" href="{!! route('specialities.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-book-medical"></i>@endif<p>{{trans('lang.speciality_plural')}}</p></a>
     </li>
-@endcan -->
+@endcan
 
 @can('doctors.index')
     <li class="nav-item has-treeview {{ Request::is('doctors*') || Request::is('doctorReviews*')|| Request::is('availabilityHours*')|| Request::is('experiences*') ? 'menu-open' : '' }}">
@@ -106,7 +106,7 @@
                             <i class="nav-icon fas fa-comments"></i>@endif<p>{{trans('lang.doctor_review_plural')}}</p></a>
                 </li>
             @endcan
-            <!-- @can('experiences.index')
+            @can('experiences.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('experiences*') ? 'active' : '' }}" href="{!! route('experiences.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-briefcase"></i>@endif<p>{{trans('lang.experience_plural')}}</p></a>
@@ -117,7 +117,7 @@
                     <a class="nav-link {{ Request::is('availabilityHours*') ? 'active' : '' }}" href="{!! route('availabilityHours.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-business-time"></i>@endif<p>{{trans('lang.availability_hour_plural')}}</p></a>
                 </li>
-            @endcan -->
+            @endcan
         </ul>
     </li>
 @endcan
@@ -128,7 +128,7 @@
     </li>
 @endcan
 
-<!-- @can('appointments.index')
+@can('appointments.index')
 <li class="nav-item has-treeview {{ Request::is('appointments*') || Request::is('appointmentStatuses*') || Request::is('deliveryAddresses*')? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('appointments*') || Request::is('appointmentStatuses*') || Request::is('deliveryAddresses*')? 'active' : '' }}"> @if($icons)
             <i class="nav-icon fas fa-calendar-check"></i>@endif
@@ -152,7 +152,7 @@
 
     </ul>
 </li>
-@endcan -->
+@endcan
 
 @can('addresses.index')
     <li class="nav-item">
@@ -162,12 +162,12 @@
 @endcan
 
 
-<!-- @can('coupons.index')
+@can('coupons.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('coupons*') ? 'active' : '' }}" href="{!! route('coupons.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-ticket-alt"></i>@endif<p>{{trans('lang.coupon_plural')}} </p></a>
     </li>
-@endcan -->
+@endcan
 
 @can('faqs.index')
     <li class="nav-item {{ Request::is('faqCategories*') || Request::is('faqs*') ? 'menu-open' : '' }}">
@@ -195,7 +195,7 @@
     </li>
 @endcan
 
-<!-- @if(Module::isActivated('Subscription'))
+@if(Module::isActivated('Subscription'))
     @can('subscriptionPackages.index')
         <li class="nav-header">{{trans('subscription::lang.subscriptions')}}</li>
     @endcan
@@ -281,9 +281,9 @@
 
     @endcan
 
-@endif -->
+@endif
 
-<!-- <li class="nav-header">{{trans('lang.payment_plural')}}</li>
+<li class="nav-header">{{trans('lang.payment_plural')}}</li>
 @can('payments.index')
     <li class="nav-item has-treeview {{ Request::is('payments*') || Request::is('paymentMethods*') || Request::is('paymentStatuses*')|| Request::is('clinicPayouts*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('payments*') || Request::is('paymentMethods*') || Request::is('paymentStatuses*')|| Request::is('clinicPayouts*') ? 'active' : '' }}"> @if($icons)
@@ -359,8 +359,8 @@
                 <i class="nav-icon fas fa-photo-video"></i>@endif
             <p>{{trans('lang.media_plural')}}</p></a>
     </li>
-@endcan -->
-<!-- 
+@endcan
+
 @can('app-settings')
     <li class="nav-item has-treeview {{ Request::is('settings/mobile*') || Request::is('slides*') || Request::is('customPages*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('settings/mobile*') || Request::is('slides*') || Request::is('customPages*') ? 'active' : '' }}">
@@ -528,7 +528,7 @@
 {{--<li class="nav-item">--}}
 {{--  <a class="nav-link {{ Request::is('doctorPatients*') ? 'active' : '' }}" href="{!! route('doctorPatients.index') !!}">@if($icons)<i class="nav-icon fa fa-file"></i>@endif<p>{{trans('lang.doctor_patients_plural')}}</p></a>--}}
 {{--</li>--}}
-{{--@endcan--}} -->
+{{--@endcan--}}
 
 <style>
     .sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active {
