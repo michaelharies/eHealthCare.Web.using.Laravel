@@ -33,12 +33,12 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="{!! url()->current() !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.doctor_table')}}</a>
                         </li>
-                        <!-- @can('doctors.create')
+                        @can('doctors.create')
                             <li class="nav-item">
                                 <a class="nav-link" href="{!! route('doctors.create') !!}"><i class="fa fa-plus mr-2"></i>{{trans('lang.doctor_create')}}
                                 </a>
                             </li>
-                        @endcan -->
+                        @endcan
                     </div>
                     @include('layouts.right_toolbar', compact('dataTable'))
                 </ul>

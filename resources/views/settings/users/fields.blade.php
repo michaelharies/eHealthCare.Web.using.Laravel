@@ -1,10 +1,10 @@
 @if($customFields)
     <h5 class="col-12 pb-4">{!! trans('lang.main_fields') !!}</h5>
 @endif
-
 <div class="d-flex flex-column col-sm-12 col-md-6">
+    
     @if($user->phone_number)
-    @php $id = strtoupper($user->roles[0]->name[0]).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 5, '0', STR_PAD_LEFT); @endphp
+    @php $id = strtoupper($user->roles[0]->name[0]).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 6, '0', STR_PAD_LEFT); @endphp
     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
         {!! Form::label('MemberID', trans("MemberID"), ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
         <div class="col-md-9">

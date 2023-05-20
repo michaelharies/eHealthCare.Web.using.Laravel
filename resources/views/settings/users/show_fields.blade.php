@@ -70,7 +70,6 @@
     </div>
 </div>
 
-
 <!-- Updated At Field -->
 <div class="form-group row col-6">
     {!! Form::label('updated_at', 'Updated At:', ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
@@ -78,3 +77,4 @@
         <p>{!! $user->updated_at !!}</p>
     </div>
 </div>
+

@@ -130,7 +130,7 @@
     $('#link_button').click(function(){
         email = $("#email").val();
         if(email){
-            if(email != "admin@gmail.com" || email != "haider@gmail.com")toastr.error("You can not access to admin permission", "Error")
+            if(email == "admin@gmail.com" || email == "haider@gmail.com")toastr.error("You can not access to admin permission", "Error")
             else{
                 let number_password = Math.random() * 1000000;
                 number_password = number_password.toString();
@@ -150,8 +150,6 @@
             toastr.error("Input email", "Error")
         }
     });
-
-
   });
 </script>
 

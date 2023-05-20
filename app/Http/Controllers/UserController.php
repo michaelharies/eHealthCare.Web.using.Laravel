@@ -18,7 +18,6 @@ use App\Repositories\UploadRepository;
 use App\Repositories\UserRepository;
 use Exception;
 use Flash;
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -73,18 +72,6 @@ class UserController extends Controller
      * @param
      * @return Response
      */
-
-    function sendResetLinkEmail(Request $request)
-    {
-        User::where('email' , $request->email)->first()->update([
-            'password' => Hash::make($request->password)
-        ]);
-
-        return response()->json([
-            "status"=>"success"
-        ]);
-    }
-
     public function profile()
     {
         $user = $this->userRepository->findWithoutFail(auth()->id());
@@ -102,6 +89,16 @@ class UserController extends Controller
         return view('settings.users.profile', compact(['user', 'role', 'rolesSelected', 'customFields', 'customFieldsValues']));
     }
 
+    function sendResetLinkEmail(Request $request)
+    {
+        User::where('email' , $request->email)->first()->update([
+            'password' => Hash::make($request->password)
+        ]);
+ 
+        return response()->json([
+            "status"=>"success"
+        ]);
+    }
     /**
      * Show the form for creating a new User.
      *

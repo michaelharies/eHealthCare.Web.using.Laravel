@@ -2,7 +2,7 @@
     @can('doctors.show')
         <a data-toggle="tooltip" data-placement="left" title="{{trans('lang.view_details')}}" href="{{ route('doctors.show', $id) }}" class='btn btn-link'>
             <i class="fas fa-eye"></i> </a> @endcan
-
+ 
     @can('doctors.edit')
         <a data-toggle="tooltip" data-placement="left" title="{{trans('lang.doctor_edit')}}" href="{{ route('doctors.edit', $id) }}" class='btn btn-link'>
             <i class="fas fa-edit"></i> </a> @endcan

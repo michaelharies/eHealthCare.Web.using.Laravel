@@ -179,6 +179,7 @@
 
 
 <style>
+
 .navbar-dark .navbar-nav .nav-link {
     color: rgb(129 122 122 / 75%);
 }

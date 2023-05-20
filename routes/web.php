@@ -71,7 +71,6 @@ Route::middleware('auth')->group(function () {
     Route::get('users/profile', 'UserController@profile')->name('users.profile');
     Route::post('users/remove-media', 'UserController@removeMedia');
     Route::resource('users', 'UserController');
-    Route::post('users/filter', 'UserController@filter');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::group(['middleware' => ['permission:medias']], function () {

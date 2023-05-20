@@ -14,7 +14,7 @@
 
     @stack('js_lib')
 </head>
-<body class="hold-transition login-page" style="background: white">
+<body class="hold-transition login-page">
 <div class="login-box" @if(isset($width)) style="width:{{$width}}" @endif>
     <div class="login-logo" style="height: 60px; padding-top: 10px; background: yellow; border-top-right-radius: 20px; border-top-left-radius: 20px;">
         <a href="{{ url('/') }}"><img src="{{$app_logo}}" alt="{{setting('app_name')}}"></a>
@@ -32,6 +32,11 @@
 </body>
 </html>
 <style>
+    body{
+        background-image: url("{{asset('images/background.png')}}");
+        background-position: center center;
+        background-size: cover;
+    }
     .card {
     box-shadow: none!important;
     }

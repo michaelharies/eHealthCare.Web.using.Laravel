@@ -8,7 +8,3 @@
 @include('layouts.datatables_js')
 {!! $dataTable->scripts() !!}
 @endpush
-
-
-
-

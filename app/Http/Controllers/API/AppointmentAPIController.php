@@ -250,7 +250,7 @@ class AppointmentAPIController extends Controller
     {
         $oldAppointment = $this->appointmentRepository->findWithoutFail($id);
         if (empty($oldAppointment)) {
-            return $this->sendError('Appointment not found');
+            // return $this->sendError('Appointment not found');
         }
         $input = $request->all();
         try {

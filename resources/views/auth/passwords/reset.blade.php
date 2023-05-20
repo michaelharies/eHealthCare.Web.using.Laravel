@@ -48,10 +48,12 @@
                 <div class="col-4 ml-auto">
                     <button type="submit" class="btn btn-{{setting("main_color","primary")}} btn-block">{{__('auth.reset_password')}}</button>
                 </div>
+                <!-- /.col -->
             </div>
         </form>
         <p class="mb-1 text-center">
             <a href="{{ url('/login') }}" class="text-center">{{__('auth.remember_password')}}</a>
         </p>
     </div>
+    <!-- /.login-card-body -->
 @endsection

@@ -72,6 +72,7 @@
     </div>
 </div>
 
+
 <!-- Available Field -->
 <div class="form-group row col-6">
     {!! Form::label('available', 'Available:', ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}

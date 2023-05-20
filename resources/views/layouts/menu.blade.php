@@ -6,26 +6,26 @@
     </li>
 @endcan
 
-@can('modules.index')
+<!-- @can('modules.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('modules*') ? 'active' : '' }}" href="{!! route('modules.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-th-large"></i>@endif
             <p>{{trans('lang.module_plural')}} @if (config('installer.demo_app')) <span class="right badge badge-danger">New</span> @endif</p></a>
     </li>
-@endcan
+@endcan -->
 
-@can('notifications.index')
-    <li class="nav-item">
-        <a class="nav-link {{ Request::is('notifications*') ? 'active' : '' }}" href="{!! route('notifications.index') !!}">@if($icons)
-                <i class="nav-icon fas fa-bell"></i>@endif<p>{{trans('lang.notification_plural')}}</p></a>
-    </li>
-@endcan
-@can('favorites.index')
-    <li class="nav-item">
-        <a class="nav-link {{ Request::is('favorites*') ? 'active' : '' }}" href="{!! route('favorites.index') !!}">@if($icons)
-                <i class="nav-icon fas fa-heart"></i>@endif<p>{{trans('lang.favorite_plural')}}</p></a>
-    </li>
-@endcan
+{{--@can('notifications.index')--}}
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link {{ Request::is('notifications*') ? 'active' : '' }}" href="{!! route('notifications.index') !!}">@if($icons)--}}
+{{--                <i class="nav-icon fas fa-bell"></i>@endif<p>{{trans('lang.notification_plural')}}</p></a>--}}
+{{--    </li>--}}
+{{--@endcan--}}
+{{--@can('favorites.index')--}}
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link {{ Request::is('favorites*') ? 'active' : '' }}" href="{!! route('favorites.index') !!}">@if($icons)--}}
+{{--                <i class="nav-icon fas fa-heart"></i>@endif<p>{{trans('lang.favorite_plural')}}</p></a>--}}
+{{--    </li>--}}
+{{--@endcan--}}
 
 
 
@@ -77,13 +77,12 @@
         </ul>
     </li>
 @endcan
-
-@can('specialities.index')
+<!-- @can('specialities.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('specialities*') ? 'active' : '' }}" href="{!! route('specialities.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-book-medical"></i>@endif<p>{{trans('lang.speciality_plural')}}</p></a>
     </li>
-@endcan
+@endcan -->
 
 @can('doctors.index')
     <li class="nav-item has-treeview {{ Request::is('doctors*') || Request::is('doctorReviews*')|| Request::is('availabilityHours*')|| Request::is('experiences*') ? 'menu-open' : '' }}">
@@ -127,8 +126,7 @@
         <a class="nav-link {{ Request::is('patients*') ? 'active' : '' }}" href="{!! route('patients.index') !!}">@if($icons)<i class="nav-icon fas fa-procedures"></i>@endif<p>{{trans('lang.patient_plural')}}</p></a>
     </li>
 @endcan
-
-@can('appointments.index')
+{{--@can('appointments.index')--}}
 <li class="nav-item has-treeview {{ Request::is('appointments*') || Request::is('appointmentStatuses*') || Request::is('deliveryAddresses*')? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('appointments*') || Request::is('appointmentStatuses*') || Request::is('deliveryAddresses*')? 'active' : '' }}"> @if($icons)
             <i class="nav-icon fas fa-calendar-check"></i>@endif
@@ -152,7 +150,7 @@
 
     </ul>
 </li>
-@endcan
+{{--@endcan--}}
 
 @can('addresses.index')
     <li class="nav-item">
@@ -168,7 +166,6 @@
                 <i class="nav-icon fas fa-ticket-alt"></i>@endif<p>{{trans('lang.coupon_plural')}} </p></a>
     </li>
 @endcan
-
 @can('faqs.index')
     <li class="nav-item {{ Request::is('faqCategories*') || Request::is('faqs*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('faqs*') || Request::is('faqCategories*') ? 'active' : '' }}"> @if($icons)
@@ -194,7 +191,6 @@
         </ul>
     </li>
 @endcan
-
 @if(Module::isActivated('Subscription'))
     @can('subscriptionPackages.index')
         <li class="nav-header">{{trans('subscription::lang.subscriptions')}}</li>
@@ -529,6 +525,8 @@
 {{--  <a class="nav-link {{ Request::is('doctorPatients*') ? 'active' : '' }}" href="{!! route('doctorPatients.index') !!}">@if($icons)<i class="nav-icon fa fa-file"></i>@endif<p>{{trans('lang.doctor_patients_plural')}}</p></a>--}}
 {{--</li>--}}
 {{--@endcan--}}
+
+
 
 <style>
     .sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active {

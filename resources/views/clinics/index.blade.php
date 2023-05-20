@@ -32,12 +32,12 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="{!! url()->current() !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.clinic_table')}}</a>
                         </li>
-                        <!-- @can('clinics.create')
+                        @can('clinics.create')
                             <li class="nav-item">
                                 <a class="nav-link" href="{!! route('clinics.create') !!}"><i class="fa fa-plus mr-2"></i>{{trans('lang.clinic_create')}}
                                 </a>
                             </li>
-                        @endcan -->
+                        @endcan
                     </div>
                     @include('layouts.right_toolbar', compact('dataTable'))
                 </ul>

@@ -96,7 +96,7 @@
                     <div class="card-header no-border">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">{{trans('lang.earning_plural')}}</h3>
-                            <a href="{{route('payments.index')}}">{{trans('lang.dashboard_view_all_payments')}}</a>
+                            <!-- <a href="{{route('payments.index')}}">{{trans('lang.dashboard_view_all_payments')}}</a> -->
                         </div>
                     </div>
                     <div class="card-body">
@@ -114,7 +114,6 @@
                                 <span class="text-muted">{{trans('lang.dashboard_total_appointments')}}</span>
                             </p>
                         </div>
-                        <!-- /.d-flex -->
 
                         <div class="position-relative mb-4">
                             <canvas id="sales-chart" height="200"></canvas>
