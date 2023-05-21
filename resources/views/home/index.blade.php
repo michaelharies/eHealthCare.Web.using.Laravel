@@ -1,7 +1,9 @@
 @extends('layouts.homeapp')
 
-
 @section('content')
+@php
+use Carbon\Carbon;
+@endphp
 <div class="homeBody">
     <div class="searcharea">
         <div class="row justifycontentspacearound">
@@ -16,45 +18,21 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 form-group">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="search_text"
-                        placeholder="Search doctors with name, speciality, address...">
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                <form action="{{action('HomeController@searching')}}" method="get">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="text" name="text" class="form-control" id="search_text"
+                            placeholder="Search doctors with name, speciality, address...">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 
     <div class="working_content">
-        <div class="row search_filter_result">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <img class="card-img-top" src="{{asset('images/default.png')}}" alt="Card image">
-                                </div>
-                                <div class="col-md-9">
-                                    <div><h3>doctor name</h3></div>
-                                    <div><p>doctor speciality</p></div>
-                                    <div><p>doctor address</p></div>
-                                    <div><p>doctor review</p></div>
-                                    <div><p>doctor experience</p></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row promised_area">
 
         </div>
@@ -73,14 +51,17 @@
             }
         });
 
-        $(".filterselect").click(function () {
-            $.ajax({
-                url: '/searching/' + search_value,
-                method: 'GET'
-            }).done(function (response) {
-                $('#results').html(response);
-            });
-        });
+        // $('#search_text').change(function(){
+        //     $.ajax({
+        //         url: '/searching',
+        //         method: 'post',
+        //         data: {
+        //             text: $('#search_text').val(),
+        //             _token: "{{ csrf_token() }}"
+        //         }
+        //     }).done(function (response) {
+        //     });
+        // });
 
     });
 
@@ -110,8 +91,8 @@
 
     .working_content {
         padding: 20px;
-        padding-left: 200px;
-        padding-right: 200px;
+        padding-left: 100px;
+        padding-right: 100px;
     }
 
     .card {
@@ -121,5 +102,32 @@
     .card-img-top {
         width: 100%;
         height: auto;
+    }
+
+    .datearea {
+        background-color: yellow;
+        width: 100%;
+        height: 80px;
+    }
+
+    .margin-bottom-10 {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .date {
+        padding-top: 15px;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+
+    .dayofweek {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    p {
+        margin: 0px !important;
+        padding: 0px;
     }
 </style>
