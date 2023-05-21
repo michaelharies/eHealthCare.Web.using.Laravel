@@ -49,9 +49,9 @@
         </div>
     </div>
 </div>
-<div class="col-12" style="height:400px; ">
+<!-- <div class="col-12" style="height:400px; ">
     <div style="width: 100%; height: 100%" id="map"></div>
-</div>
+</div> -->
 @if($customFields)
     <div class="clearfix"></div>
     <div class="col-12 custom-field-container">

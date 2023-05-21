@@ -3,24 +3,7 @@
     <link rel="stylesheet" href="{{asset('vendor/bs-stepper/css/bs-stepper.min.css')}}">
 @endpush
 @section('content')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <h1 class="m-0 text-bold">{{trans('lang.appointment_plural')}} <small class="mx-3">|</small><small>{{trans('lang.appointment_desc')}}</small></h1>
-                </div><!-- /.col -->
-                <div class="col-md-6">
-                    <ol class="breadcrumb bg-white float-sm-right rounded-pill px-4 py-2 d-none d-md-flex">
-                        <li class="breadcrumb-item"><a href="{{url('/')}}"><i class="fas fa-tachometer-alt"></i> {{trans('lang.dashboard')}}</a></li>
-                        <li class="breadcrumb-item active"><a href="{!! route('appointments.index') !!}">{{trans('lang.appointment_plural')}}</a>
-                        </li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+
     <div class="content d-flex flex-column flex-md-row">
         <div class="col-12 col-md-8 col-xl-9">
             <div class="card shadow-sm">

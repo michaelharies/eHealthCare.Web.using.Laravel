@@ -10,3 +10,9 @@
         </nav>
     </div>
 </aside>
+
+<style>
+    .sidebar{
+        background: yellow;
+    }
+</style>

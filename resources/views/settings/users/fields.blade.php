@@ -4,11 +4,15 @@
 <div class="d-flex flex-column col-sm-12 col-md-6">
     
     @if($user->phone_number)
-    @php $id = strtoupper($user->roles[0]->name[0]).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 6, '0', STR_PAD_LEFT); @endphp
+    @php if($user->roles[0]->name == "customer"){$sort = "p";} @endphp
+    @php if($user->roles[0]->name == "admin"){$sort = "a";} @endphp
+    @php if($user->roles[0]->name == "clinic_owner"){$sort = "c";} @endphp
+    @php if($user->roles[0]->name == "doctor"){$sort = "d";} @endphp
+    @php $id = strtoupper($sort).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 6, '0', STR_PAD_LEFT); @endphp
     <div class="form-group align-items-baseline d-flex flex-column flex-md-row">
         {!! Form::label('MemberID', trans("MemberID"), ['class' => 'col-md-3 control-label text-md-right mx-1']) !!}
         <div class="col-md-9">
-            {!! Form::text($id, null,  ['class' => 'form-control','placeholder'=> trans(strtoupper($user->roles[0]->name[0]).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 5, '0', STR_PAD_LEFT))]) !!}
+            {!! Form::text($id, null,  ['class' => 'form-control','placeholder'=> trans(strtoupper($sort).$user->phone_number[1].$user->created_at->toDateTimeString()[2].$user->created_at->toDateTimeString()[3].$user->created_at->toDateTimeString()[5].$user->created_at->toDateTimeString()[6].str_pad(strval($user->id), 5, '0', STR_PAD_LEFT))]) !!}
             <div class="form-text text-muted">
                 {{ trans($id) }}
             </div>

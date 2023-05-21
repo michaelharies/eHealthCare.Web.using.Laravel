@@ -160,12 +160,12 @@
 @endcan
 
 
-@can('coupons.index')
+<!-- @can('coupons.index')
     <li class="nav-item">
         <a class="nav-link {{ Request::is('coupons*') ? 'active' : '' }}" href="{!! route('coupons.index') !!}">@if($icons)
                 <i class="nav-icon fas fa-ticket-alt"></i>@endif<p>{{trans('lang.coupon_plural')}} </p></a>
     </li>
-@endcan
+@endcan -->
 @can('faqs.index')
     <li class="nav-item {{ Request::is('faqCategories*') || Request::is('faqs*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('faqs*') || Request::is('faqCategories*') ? 'active' : '' }}"> @if($icons)
@@ -174,12 +174,12 @@
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('faqCategories.index')
+            <!-- @can('faqCategories.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('faqCategories*') ? 'active' : '' }}" href="{!! route('faqCategories.index') !!}">@if($icons)
                             <i class="nav-icon fas fa-folder-open"></i>@endif<p>{{trans('lang.faq_category_plural')}}</p></a>
                 </li>
-            @endcan
+            @endcan -->
 
             @can('faqs.index')
                 <li class="nav-item">
@@ -191,7 +191,7 @@
         </ul>
     </li>
 @endcan
-@if(Module::isActivated('Subscription'))
+<!-- @if(Module::isActivated('Subscription'))
     @can('subscriptionPackages.index')
         <li class="nav-header">{{trans('subscription::lang.subscriptions')}}</li>
     @endcan
@@ -277,9 +277,9 @@
 
     @endcan
 
-@endif
+@endif -->
 
-<li class="nav-header">{{trans('lang.payment_plural')}}</li>
+<!-- <li class="nav-header">{{trans('lang.payment_plural')}}</li>
 @can('payments.index')
     <li class="nav-item has-treeview {{ Request::is('payments*') || Request::is('paymentMethods*') || Request::is('paymentStatuses*')|| Request::is('clinicPayouts*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('payments*') || Request::is('paymentMethods*') || Request::is('paymentStatuses*')|| Request::is('clinicPayouts*') ? 'active' : '' }}"> @if($icons)
@@ -519,7 +519,7 @@
 
         </ul>
     </li>
-@endcan
+@endcan -->
 {{--@can('doctorPatients.index')--}}
 {{--<li class="nav-item">--}}
 {{--  <a class="nav-link {{ Request::is('doctorPatients*') ? 'active' : '' }}" href="{!! route('doctorPatients.index') !!}">@if($icons)<i class="nav-icon fa fa-file"></i>@endif<p>{{trans('lang.doctor_patients_plural')}}</p></a>--}}

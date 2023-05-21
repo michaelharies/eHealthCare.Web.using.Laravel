@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('uploads/store', 'UploadController@store')->name('medias.create');
     Route::get('users/profile', 'UserController@profile')->name('users.profile');
+
+    Route::get('Home', 'HomeController@index');
+
     Route::post('users/remove-media', 'UserController@removeMedia');
     Route::resource('users', 'UserController');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
@@ -85,7 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::get('permissions/role-has-permission', 'PermissionController@roleHasPermission');
         Route::get('permissions/refresh-permissions', 'PermissionController@refreshPermissions');
     });
-    Route::group(['middleware' => ['permission:permissions.index']], function () {
+    Route::group(['middleware' => ['permission:perm`issions.index']], function () {
         Route::post('permissions/give-permission-to-role', 'PermissionController@givePermissionToRole');
         Route::post('permissions/revoke-permission-to-role', 'PermissionController@revokePermissionToRole');
     });

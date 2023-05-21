@@ -85,6 +85,7 @@ class RegisterController extends Controller
         $user->email =  $data['email'];
         $user->password = Hash::make($data['password']);
         $user->api_token = Str::random(60);
+        $user->memberid = "patientid";
         $user->save();
 
         $defaultRoles = $this->roleRepository->findByField('default', '1');
