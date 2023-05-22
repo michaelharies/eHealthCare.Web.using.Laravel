@@ -73,8 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/Home/{id}', 'HomeController@index');
     Route::get('/search', 'HomeController@searching');
     Route::get('/promisedelete', 'HomeController@promisedelete');
+    Route::post('/openbooking', 'HomeController@openbooking');
+    Route::post('/booknow', 'HomeController@booknow');
 
-    
 
 
 

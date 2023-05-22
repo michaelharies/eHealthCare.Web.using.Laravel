@@ -87,9 +87,11 @@ use Carbon\Carbon;
                                 <div>
                                     <p class="textgrey"><i class="fa fa-hospital" aria-hidden="true"></i> {{$clinictp}}</p>
                                 </div>
-                                @if($hint)<div>
+                                @if($hint)
+                                <div>
                                     <p class="textgrey">Reason: {{$hint}}</p>
-                                </div>@endif
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-4">
