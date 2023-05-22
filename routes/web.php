@@ -70,10 +70,11 @@ Route::middleware('auth')->group(function () {
     Route::post('uploads/store', 'UploadController@store')->name('medias.create');
     Route::get('users/profile', 'UserController@profile')->name('users.profile');
 
-    Route::get('/Home', 'HomeController@index');
+    Route::get('/Home/{id}', 'HomeController@index');
     Route::get('/search', 'HomeController@searching');
+    Route::get('/promisedelete', 'HomeController@promisedelete');
 
-
+    
 
 
 

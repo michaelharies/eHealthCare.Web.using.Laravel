@@ -42,7 +42,8 @@ class Permissions
         $permission = $request->route()->getName();
         if ($this->match($request->route()) && auth()->user()->canNot($permission)) {
             if ($permission == 'dashboard') {
-                if (auth()->user()->memberid == "patientid")return redirect(url("/Home"));
+                $id = auth()->user()->id;
+                if (auth()->user()->memberid == "patientid")return redirect(url("/Home/{$id}"));
                 return redirect(route('users.profile'));
             }
             throw new UnauthorizedException(403, trans('error.permission') . ' <b>' . $permission . '</b>');

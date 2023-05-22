@@ -5,23 +5,30 @@
 use Carbon\Carbon;
 @endphp
 <div class="homeBody">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 form-group">
-                <form action="{{action('HomeController@searching')}}" method="get">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="text" name="text" class="form-control" id="search_text"
-                            placeholder="Search doctors with name, speciality, address...">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 form-group">
+            <form action="{{action('HomeController@searching')}}" method="get">
+                @csrf
+                <div class="input-group mb-3">
+                    <input type="text" name="text" class="form-control" id="search_text"
+                        placeholder="Search doctors with name, speciality, address...">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+    </div>
     <div class="working_content">
         <div class="row search_filter_result">
+            <div class="row justifycontentspacearound">
+                @if(!$doctors)
+                <div>
+                    <h3>Nothing to match.</h3>
+                </div>
+                @endif
+            </div>
             @foreach($doctors as $doctor)
             <div class="card">
                 <div class="card-body">
@@ -54,25 +61,25 @@ use Carbon\Carbon;
                         </div>
                         <div class="col-md-7">
                             <div class="row">
-                                @for($par = 0 ; $par < 12 ; $par ++) @php $add='+' .$par.' days'; $date=date('Y-m-d',strtotime($add)) @endphp
-                                <div class="col-md-2 margin-bottom-10">
+                                @for($par = 0 ; $par < 12 ; $par ++) @php $add='+' .$par.' days';
+                                    $date=date('Y-m-d',strtotime($add)) @endphp <div class="col-md-2 margin-bottom-10">
                                     <div class="datearea">
                                         <p class="date">{{$date}}</p>
                                         <p class="dayofweek">{{Carbon::parse($date)->dayName}}</p>
                                     </div>
-                                </div>
-                                @endfor
                             </div>
+                            @endfor
                         </div>
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
-        <div class="row promised_area">
-
-        </div>
+        @endforeach
     </div>
+    <div class="row promised_area">
+
+    </div>
+</div>
 </div>
 @endsection
 
@@ -87,7 +94,7 @@ use Carbon\Carbon;
             }
         });
 
-        $('#search_text').change(function(){
+        $('#search_text').change(function () {
             $.ajax({
                 url: '/searching',
                 method: 'post',
@@ -145,21 +152,25 @@ use Carbon\Carbon;
         width: 100%;
         height: 80px;
     }
-    .margin-bottom-10{
+
+    .margin-bottom-10 {
         text-align: center;
         margin-bottom: 12px;
     }
-    .date{
+
+    .date {
         padding-top: 15px;
         padding-bottom: 0px;
         margin-bottom: 0px;
     }
-    .dayofweek{
-        padding : 0px;
-        margin : 0px;
+
+    .dayofweek {
+        padding: 0px;
+        margin: 0px;
     }
-    p{
-        margin: 0px!important;
+
+    p {
+        margin: 0px !important;
         padding: 0px;
     }
 </style>

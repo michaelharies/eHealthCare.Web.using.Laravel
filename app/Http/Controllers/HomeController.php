@@ -25,9 +25,30 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home.index');
+        $promise = DB::table('appointments')
+            ->where('user_id', $request->id)->get();
+            $cnt = 0;
+            $cn = 0;
+            $promisetp = [];
+        foreach($promise as $tp){
+            $userid = DB::table('doctors')->where('id', json_decode($tp->doctor)->id)->first()->user_id;
+            $path = DB::table('media')->where('model_id', $userid)->where('collection_name', 'avatar')->first();
+            if(!$path){
+                $path = DB::table('media')->where('model_id', $userid)->where('collection_name', 'image')->first();
+            }
+            if($path){
+                $path = "storage/app/public/".$path->id."/conversions/".$path->name."-icon.jpg";
+            }
+            $promise[$cnt]->userimagepath = $path;
+            if(!$tp->cancel){
+                $promisetp[$cn++] = $promise[$cnt];
+            }
+            $cnt++;
+        }
+        $promise = $promisetp;
+        return view('home.index')->with('promise', $promise);
     }
 
     public function searching(Request $request)
@@ -97,19 +118,33 @@ class HomeController extends Controller
         }
         $cn = 0;
         foreach($filter as $tp){
-            $hours = DB::table('availability_hours')
-                ->where('doctor_id', $tp->id)->latest()->first();
-            $cnt = 0;
-            $rlt = [];
-            foreach($hours as $tp){
-                $rlt[$cnt] = $tp->review;
-                $cnt ++;
-            }
-            $filter[$cn]->review = $rlt;
+            $rlt[0] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'monday')->latest('id')->first();
+            $rlt[1] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'tuesday')->latest('id')->first();
+            $rlt[2] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'wednesday')->latest('id')->first();
+            $rlt[3] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'thursday')->latest('id')->first();
+            $rlt[4] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'friday')->latest('id')->first();
+            $rlt[5] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'saturday')->latest('id')->first();
+            $rlt[6] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'sunday')->latest('id')->first();
+
+            $filter[$cn]->hour = $rlt;
             $cn ++;
         }
-        dd($filter);
+
+        
         return view('home.filter')->with('doctors', $filter);
+    }
+
+    public function promisedelete(Request $request){
+        DB::table('appointments')->where('id', $request->id)
+                                    ->update(array('cancel' => '1'));
+        return back();
     }
 
 

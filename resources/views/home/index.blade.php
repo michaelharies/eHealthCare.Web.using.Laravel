@@ -33,8 +33,83 @@ use Carbon\Carbon;
     </div>
 
     <div class="working_content">
-        <div class="row promised_area">
+        @if($promise)
+        <div class="row justifycontentspacearound margin-bottom-10">
+            <div>
+                <h3 class="fontbold">You have the following appointments.</h3>
+            </div>
+        </div>
+        @endif
+        @if(!$promise)
+        <div class="row justifycontentspacearound margin-bottom-10">
+            <div>
+                <h3 class="fontbold">You don't have any appointments.</h3>
+            </div>
+        </div>
+        @endif
 
+        <div class="row promised_area">
+            @foreach($promise as $protp)
+            @if(!$protp->cancel)
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        @if(!$protp->userimagepath)
+                        <div class="col-md-2">
+                            <img class="card-img-top" src="{{asset('images/default.png')}}" alt="Card image">
+                        </div>
+                        @endif
+                        @if($protp->userimagepath)
+                        <div class="col-md-2">
+                            <img class="card-img-top" src={{"http://127.0.0.1/".$protp->userimagepath}} alt="Card image">
+                        </div>
+                        @endif
+                        <div class="col-md-5">
+                            <div class="row">
+                                @php $strtp = Carbon::parse($protp->appointment_at)->dayName.",
+                                ".$protp->appointment_at; @endphp
+                                <h4 class="">{{$strtp}}</h4>
+                            </div>
+                            <div class="row displayblock">
+                                @php
+                                $strtp = json_decode($protp->address)->address;
+                                $doctortp = json_decode($protp->doctor)->name;
+                                $clinictp = json_decode($protp->clinic)->name;
+                                $hint = $protp->hint;
+                                @endphp
+
+                                <div>
+                                    <p class="textgrey"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$strtp}}</p>
+                                </div>
+                                <div>
+                                    <p class="textgrey"><i class="fa fa-user-md" aria-hidden="true"></i> {{$doctortp}}</p>
+                                </div>
+                                <div>
+                                    <p class="textgrey"><i class="fa fa-hospital" aria-hidden="true"></i> {{$clinictp}}</p>
+                                </div>
+                                @if($hint)<div>
+                                    <p class="textgrey">Reason: {{$hint}}</p>
+                                </div>@endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row margin-bottom-50">
+                                <p class="textblue">This appointment is created at {{$protp->created_at}}</p>
+                            </div>
+                            <div class="row justifycontentspacearound">
+                                <p class="textgrey">Do you cancel a promise with this doctor?</p>
+                                <form action="{{action('HomeController@promisedelete')}}" method = "get">
+                                    <input name="id" value={{explode('/', $protp->id)[0]}} style="display:none"/>
+                                    <button class="btn yellow" type="submit"><i class="fa fa-trash fontsize-40"
+                                            aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @endforeach
         </div>
     </div>
 </div>
@@ -73,6 +148,10 @@ use Carbon\Carbon;
         padding-top: 20px;
     }
 
+    .fontsize-40 {
+        font-size: 15px;
+    }
+
     .searcharea {
         background-color: #e2f0ff;
         margin-left: 200px;
@@ -91,8 +170,8 @@ use Carbon\Carbon;
 
     .working_content {
         padding: 20px;
-        padding-left: 100px;
-        padding-right: 100px;
+        padding-left: 200px;
+        padding-right: 200px;
     }
 
     .card {
@@ -100,7 +179,7 @@ use Carbon\Carbon;
     }
 
     .card-img-top {
-        width: 100%;
+        width: 100px !important;
         height: auto;
     }
 
@@ -113,6 +192,11 @@ use Carbon\Carbon;
     .margin-bottom-10 {
         text-align: center;
         margin-bottom: 12px;
+    }
+
+    .margin-bottom-50 {
+        text-align: center;
+        margin-bottom: 50px;
     }
 
     .date {
@@ -129,5 +213,32 @@ use Carbon\Carbon;
     p {
         margin: 0px !important;
         padding: 0px;
+    }
+
+    .fontbold {
+        font-weight: 900;
+    }
+
+    .card-body {
+        padding: 20px !important;
+    }
+
+    .textcenter {
+        text-align: center;
+    }
+
+    .displayblock {
+        display: block !important;
+    }
+
+    .yellow {
+        width: 60px;
+        background-color: rgb(236, 236, 50) !important;
+    }
+    .textblue{
+        color: rgb(78, 78, 235);
+    }
+    .textgrey{
+        color: grey;
     }
 </style>
