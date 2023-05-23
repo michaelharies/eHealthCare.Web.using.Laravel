@@ -70,10 +70,10 @@
                                 </li>
                                 @hasrole('customer')
                                 <div class="ml-auto d-inline-flex">
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link pt-1" href="{{ route('clinics.create') }}"><i class="fas fa-check-o"></i> {{trans('lang.app_setting_become_servicclinic')}}
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </div>
                                 @endhasrole
                             </ul>

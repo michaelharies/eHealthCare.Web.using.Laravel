@@ -125,9 +125,11 @@
                     <!-- Back Field -->
                     <div class="form-group col-12 d-flex flex-column flex-md-row justify-content-md-end justify-content-sm-center border-top pt-4">
                         <a href="#" class="btn btn-default mx-md-2 my-md-0 my-2" id="printOrder"> <i class="fas fa-print"></i> {{trans('lang.print')}}
-                        </a> <a href="{!! route('appointments.edit', $appointment->id) !!}" class="btn btn-default mx-md-2">
+                        </a> 
+                        <!-- <a href="{!! route('appointments.edit', $appointment->id) !!}" class="btn btn-default mx-md-2">
                             <i class="fas fa-edit"></i> {{trans('lang.appointment_edit')}}
-                        </a> <a href="{!! route('appointments.index') !!}" class="btn btn-default mx-md-2">
+                        </a>  -->
+                        <a href="{!! route('appointments.index') !!}" class="btn btn-default mx-md-2">
                             <i class="fas fa-list"></i> {{trans('lang.appointment_table')}}
                         </a>
 
@@ -181,11 +183,11 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <small>{{$appointment->address->address}}</small>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                             <b>{{__('lang.address_open_with')}}</b>
                             <a target="_blank" class="btn btn-sm btn-default" href="{{'https://www.google.com/maps/@'.$appointment->address->latitude .','.$appointment->address->longitude.',14z'}}"><i class="fas fa-directions mx-1"></i>{{__('lang.address_google_maps')}}
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

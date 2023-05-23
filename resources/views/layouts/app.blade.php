@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/styles.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/'.setting("theme_color","primary").'.min.css')}}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
     @yield('css_custom')
 </head>
 
 <body class="@if(in_array(app()->getLocale(), ['ar','ku','fa','ur','he','ha','ks'])) rtl @else ltr @endif layout-fixed {{setting('fixed_header',false) ? "layout-navbar-fixed" : ""}} {{setting('fixed_footer',false) ? "layout-footer-fixed" : ""}} sidebar-mini {{setting('theme_color')}} {{setting('theme_contrast','')}}-mode" data-scrollbar-auto-hide="l" data-scrollbar-theme="os-theme-dark">
 <div class="wrapper">
     <nav class="main-header navbar navbar-expand {{setting('nav_color','navbar-light navbar-white')}} border-bottom-0" style = "background-color: yellow">
+        @if(auth()->user()->memberid !== 'patientid')
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -28,37 +31,30 @@
                 <a href="{{url('dashboard')}}" class="nav-link" style="color: #837b82; font-weight: bold">{{trans('lang.dashboard')}}</a>
             </li>
         </ul>
+        @endif
+        @if(auth()->user()->memberid === 'patientid')
+        <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{!! route('dashboard') !!}" style="color: #837b82; font-weight: bold"><p>Home</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{action('PatientController@index')}}" style="color: #837b82; font-weight: bold"><p>Patient</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{!! route('appointments.index') !!}" style="color: #837b82; font-weight: bold"><p>{{trans('lang.appointment_plural')}}</p></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{!! route('addresses.index') !!}" style="color: #837b82; font-weight: bold"><p>{{trans('lang.address_plural')}}</p></a>
+                </li>
+        </ul>
+        @endif
         <ul class="navbar-nav ml-auto">
-            @if(env('APP_CONSTRUCTION',false))
-                <li class="nav-item">
-                    <a class="nav-link text-danger" href="#"><i class="fas fa-info-circle"></i>
-                        {{env('APP_CONSTRUCTION','') }}</a>
-                </li>
-            @endif
-            @can('favorites.index')
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('favorites*') ? 'active' : '' }}" href="{{route('favorites.index')}}"><i class="fas fa-heart" style="color: #ada1ac"></i></a>
-                </li>
-            @endcan
+
             @can('notifications.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('notifications*') ? 'active' : '' }}" href="{!! route('notifications.index') !!}"><i class="fas fa-bell" style="color: #ada1ac"></i></a>
                 </li>
             @endcan
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fa fas fa-angle-down" style="color: #ada1ac"></i> {!! Str::upper(app()->getLocale()) !!}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    {!! Form::open(['url' => ['settings/updateLanguage'], 'method' => 'patch','id'=>'languages-form']) !!}
-                    {!!  Form::hidden('locale',app()->getLocale(),['id'=>'current-language'])!!}
-                    @foreach(getAvailableLanguages() as $locale => $lang)
-                        <a href="#" style="color: #ada1ac" class="dropdown-item @if(app()->getLocale() == $locale) active @endif" onclick="changeLanguage('{{$locale}}')">
-                            <i class="fas fa-circle mr-2"></i> <span style="color: #ada1ac">EN</span>
-                        </a>
-                    @endforeach
-                    {!! Form::close() !!}
-                </div>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#" style="color: #ada1ac">
                     <img src="{{auth()->user()->getFirstMediaUrl('avatar','icon')}}" class="brand-image mx-2 img-circle elevation-2" alt="User Image">
@@ -78,37 +74,11 @@
         </ul>
     </nav>
 
-    @if(auth()->user()->memberid == 'patientid')
+    @if(auth()->user()->memberid !== 'patientid')
         @include('layouts.sidebar')
     @endif
-    <!-- <aside class="main-sidebar sidebar-{{setting('theme_contrast')}}-{{setting('theme_color')}} shadow">
-        <a href="{{url('dashboard')}}" class="brand-link border-bottom-0 text-light navbar-yellow {{setting('bg-white')}}" style="background: yellow">
-            <img src="{{$app_logo ?? ''}}" alt="{{setting('app_name')}}" class="brand-image" style="margin-left: 1.4rem">
-        </a>
-        <div class="sidebar">
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('patients*') ? 'active' : '' }}" href="{!! route('patients.index') !!}"><i class="nav-icon fas fa-procedures"></i><p>Patient</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('appointments*') ? 'active' : '' }}" href="{!! route('appointments.index') !!}">
-                                    <i class="nav-icon fas fa-calendar-check"></i><p>Appointment</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('addresses*') ? 'active' : '' }}" href="{!! route('addresses.index') !!}">
-                                    <i class="nav-icon fas fa-map-marked-alt"></i><p>Address</p></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('faqs*') ? 'active' : '' }}" href="{!! route('faqs.index') !!}">
-                                    <i class="nav-icon fas fa-life-ring"></i>
-                                <p>FAQ</p></a>
-                        </li>
-                </ul>
-            </nav>
-        </div>
-    </aside> -->
-    <div class="content-wrapper">
+
+    <div class="content-wrapper" style = "height: auto!important;">
         @yield('content')
     </div>
 
@@ -198,21 +168,27 @@
 @stack('scripts_lib')
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <script src="{{asset('js/scripts.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
 @stack('scripts')
 </body>
 </html>
 
 
 <style>
-
-.navbar-dark .navbar-nav .nav-link {
-    color: rgb(129 122 122 / 75%);
+    .navbar-dark .navbar-nav .nav-link {
+        color: rgb(129 122 122 / 75%);
     }
-.sidebar{
+    .sidebar{
         background: yellow;
     }
-.sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active {
-        background-color: #9d4399;
-        color: #fff;
+
+    .content-wrapper {
+        transition: margin-left 0s ease-in-out!important;
+        margin-left: <?php echo (auth()->user()->memberid === 'patientid') ? '0px' : '250px'; ?> !important;
+    }
+    .main-footer, .main-header {
+        transition: margin-left 0s ease-in-out!important;
+        margin-left: <?php echo (auth()->user()->memberid === 'patientid') ? '0px' : '250px'; ?> !important;
     }
 </style>

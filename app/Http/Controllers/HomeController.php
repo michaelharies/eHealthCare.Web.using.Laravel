@@ -151,7 +151,7 @@ class HomeController extends Controller
             $cnt++;
         }
 
-        return view('home.filter')->with('doctors', $filter);
+        return view('home.filter')->with('doctors', $filter)->with('speciality', 'disable');
     }
 
     public function promisedelete(Request $request){
@@ -284,6 +284,110 @@ class HomeController extends Controller
         }else{
             return response()->json(['status'=>'failed']);
         }
+    }
+
+    public function speciality(Request $request){
+        $doctor_ids = DB::table('doctor_specialities')->where('speciality_id', $request->id)->get();
+        $cnt = 0;
+        $doctors = [];
+        foreach($doctor_ids as $doctor_id){
+            $doctor = DB::table('doctors')->where('id', $doctor_id->doctor_id)->first();
+            $doctors[$cnt ++] = $doctor;
+        }
+        $filter = $doctors;
+        $cn = 0;
+        foreach($filter as $tp){
+            $specialisties = DB::table('doctor_specialities')
+                ->where('doctor_id', $tp->id)->get();
+            $cnt = 0;
+            $rlt = "";
+            foreach($specialisties as $tp){
+                $specialist[$cnt] = DB::table('specialities')
+                    ->where('id', $tp->speciality_id)->get();
+                $rlt = $rlt.$specialist[$cnt][0]->name.', ';
+                $cnt ++;
+            }
+            $filter[$cn]->specialist = $rlt;
+            $cn ++;
+        }
+
+        $cn = 0;
+        foreach($filter as $tp){
+            $addresses = DB::table('addresses')
+                ->where('user_id', $tp->user_id)->get();
+            $cnt = 0;
+            $rlt = [];
+            foreach($addresses as $tp){
+                $rlt[$cnt] = $tp->description.' - '.$tp->address;
+                $cnt ++;
+            }
+            $filter[$cn]->address = $rlt;
+            $cn ++;
+        }
+
+        $cn = 0;
+        foreach($filter as $tp){
+            $experiences = DB::table('experiences')
+                ->where('doctor_id', $tp->id)->get();
+            $cnt = 0;
+            $rlt = [];
+            foreach($experiences as $tp){
+                $rlt[$cnt] = new \stdClass();
+                $rlt[$cnt]->title = $tp->title;
+                $rlt[$cnt]->description = $tp->description;
+                $cnt ++;
+            }
+            $filter[$cn]->experience = $rlt;
+            $cn ++;
+        }
+        $cn = 0;
+        foreach($filter as $tp){
+            $reviews = DB::table('doctor_reviews')
+                ->where('doctor_id', $tp->id)->get();
+            $cnt = 0;
+            $rlt = [];
+            foreach($reviews as $tp){
+                $rlt[$cnt] = $tp->review;
+                $cnt ++;
+            }
+            $filter[$cn]->review = $rlt;
+            $cn ++;
+        }
+        $cn = 0;
+        foreach($filter as $tp){
+            $rlt[0] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'monday')->latest('id')->first();
+            $rlt[1] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'tuesday')->latest('id')->first();
+            $rlt[2] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'wednesday')->latest('id')->first();
+            $rlt[3] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'thursday')->latest('id')->first();
+            $rlt[4] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'friday')->latest('id')->first();
+            $rlt[5] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'saturday')->latest('id')->first();
+            $rlt[6] = DB::table('availability_hours')
+                ->where('doctor_id', $tp->id)->where('day', 'sunday')->latest('id')->first();
+
+            $filter[$cn]->hour = $rlt;
+            $cn ++;
+        }
+
+        $cnt = 0;
+        foreach($filter as $tp){
+            $path = DB::table('media')->where('model_type', 'App\Models\Doctor')->where('model_id', $tp->id)->where('collection_name', 'avatar')->first();
+            if(!$path){
+                $path = DB::table('media')->where('model_type', 'App\Models\Doctor')->where('model_id', $tp->id)->where('collection_name', 'image')->first();
+            }
+            if($path){
+                $path = "storage/app/public/".$path->id."/conversions/".$path->name."-icon.jpg";
+            }
+            $filter[$cnt]->userimagepath = $path;
+            $cnt++;
+        }
+        $special = DB::table('specialities')->where('id', $request->id)->first()->name;
+        return view('home.filter')->with('doctors', $filter)->with('speciality', $special);
     }
 
 }

@@ -60,10 +60,7 @@ class PatientController extends Controller
     {
         return $patientDataTable->render('patients.index');
     }
-    public function index_top(PatientDataTable $patientDataTable)
-    {
-        return $patientDataTable->render('patients.index');
-    }
+
 
     /**
      * Show the form for creating a new Patient.

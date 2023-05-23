@@ -1,4 +1,4 @@
-@extends('layouts.homeapp')
+@extends('layouts.app')
 
 @section('content')
 @php
@@ -32,8 +32,113 @@ use Carbon\Carbon;
             </div>
         </div>
     </div>
+    <div class="row margin-top-10">
+        <div class="col-md"></div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="1" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc">Allergists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="2" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Oncologists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="3" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc">Ophthalmologists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="4" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Neurologists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="5" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Hematologists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="6" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> DentalSurgeons</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="9" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Veterinarian</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="7" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Cardiovascular</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+        <div class="col-md">
+            <form action="{{action('HomeController@speciality')}}" method="get">
+                @csrf
+                <input type="text" value="8" name="id" class="form-control" style="display: none;" />
+                <button class="card backblue" type="submit">
+                    <div class="card-body">
+                        <p class="fontc"> Otolaryngologists</p>
+                    </div>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-md"></div>
+    </div>
 
     <div class="working_content">
+
         @if($promise)
         <div class="row justifycontentspacearound margin-bottom-10">
             <div>
@@ -103,11 +208,32 @@ use Carbon\Carbon;
                             <div class="row margin-bottom-50">
                                 <p class="textblue">This appointment is created at {{$protp->created_at}}</p>
                             </div>
-                            <div class="row justifycontentspacearound">
-                                <p class="textgrey">Do you cancel a promise with this doctor?</p>
-                                <button class="btn yellow" data-toggle="modal" data-target="#deletemodal"
-                                    type="button"><i class="fa fa-trash fontsize-40" aria-hidden="true"></i></button>
+                            <div class="row">
+                                <button class="btn yellow" data-toggle="modal" style="width:fit-content; border-radius: 0px;"
+                                    data-target="#deletemodal{{$protp->id}}" type="button"><i class="fa fa-trash fontsize-40"
+                                        aria-hidden="true"></i> Do you cancel a promise with this doctor?</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deletemodal{{$protp->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form action="{{action('HomeController@promisedelete')}}" method="get">
+                                @csrf
+                                <input name="id" value={{explode('/', $protp->id)[0]}} style="display:none"/>
+                                <div class="row justyright">
+                                    <div class="col-md-6 justifycontentspacearound margin-top-10">
+                                        Do you really delete?
+                                    </div>
+                                    <button type="submit" class="btn btn-danger margin5">Delete</button>
+                                    <button type="button" class="btn btn-secondary margin5"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -117,26 +243,7 @@ use Carbon\Carbon;
         </div>
     </div>
 
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form action="{{action('HomeController@promisedelete')}}" method="get">
-                        @csrf
-                        <input name="id" value={{explode('/', $protp->id)[0]}} style="display:none"/>
-                        <div class="row justyright">
-                            <div class="col-md-6 justifycontentspacearound margin-top-10">
-                                Do you really delete?
-                            </div>
-                            <button type="submit" class="btn btn-danger margin5">Delete</button>
-                            <button type="button" class="btn btn-secondary margin5" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 @endsection
 
@@ -175,6 +282,10 @@ use Carbon\Carbon;
 
     .fontsize-40 {
         font-size: 15px;
+    }
+
+    .backblue {
+        background-color: #e2f0ff !important;
     }
 
     .searcharea {
@@ -289,5 +400,9 @@ use Carbon\Carbon;
 
     .modal-dialog {
         top: 300px;
+    }
+
+    .fontc {
+        font-family: cursive;
     }
 </style>

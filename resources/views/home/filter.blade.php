@@ -1,4 +1,4 @@
-@extends('layouts.homeapp')
+@extends('layouts.app')
 
 @section('content')
 @php
@@ -22,6 +22,12 @@ use Carbon\Carbon;
     </div>
     <div class="working_content">
         <div class="row search_filter_result">
+            @if($speciality === "disable")
+            <h3>Search Result</h3>
+            @endif
+            @if($speciality !== "disable")
+            <h3>{{$speciality}}</h3>
+            @endif
             @php $cn = 0; @endphp
             @foreach($doctors as $tp)
             @php $cn ++; @endphp
@@ -73,7 +79,8 @@ use Carbon\Carbon;
                                     @endif
                                     @if(!$doctor->review)
                                     <div>
-                                        <p class="grey"><i class="fa fa-star blue" aria-hidden="true"></i> Reviews(0)</p>
+                                        <p class="grey"><i class="fa fa-star blue" aria-hidden="true"></i> Reviews(0)
+                                        </p>
                                     </div>
                                     @endif
                                     <div>
@@ -118,7 +125,7 @@ use Carbon\Carbon;
                             </div>
                             @endif
                             <div class="col-md-5"></div>
-                            <h3 class="grey">{{explode('"', $doctor->name)[3]}}</h3>
+                            <h3 class="peachpuff">{{explode('"', $doctor->name)[3]}}</h3>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -193,14 +200,37 @@ use Carbon\Carbon;
                         <input type="text" name="text" class="form-control" id="hint"
                             placeholder="What's the reason for your visit?">
                     </div>
-                    <div class="row" style="justify-content: end;"><button id="bookingbutton" data-dismiss="modal"
-                            class="btn btn-warning">Book
-                            now</button></div>
+                    <div class="row" style="justify-content: end;">
+                        <button id="" data-toggle="modal" data-target="#bookingfinal" class="btn btn-warning">Book
+                            now</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="bookingfinal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"
+                style="background-color: #a897c9f2!important; top: 300px; width: 700px; right: -250px!important; justify-content: space-between;">
+                <div class="modal-body" style="margin: 20px!important; ">
+                    <div class="row justifycontentspacearound">
+                        <h3>Are you sure this point?</h3>
+                    </div>
+                    <!-- <div class="row" style="display: block;">
+                        <h5 style="color: grey!important;">Doctor: </h5>
+                        <h5 style="color: grey!important;">Patient: </h5>
+                        <h5 style="color: grey!important;">When: </h5>
+                        <h5 style="color: grey!important;">Where: </h5>
+                    </div> -->
+                    <div class="row" style="justify-content: center;">
+                        <button type="submit" id="bookingbutton" class="btn btn-danger margin5">Confirm</button>
+                        <button type="button" class="btn btn-secondary margin5" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 @endsection
@@ -358,6 +388,8 @@ use Carbon\Carbon;
                         final_patient_id = '';
                         final_address_id = '';
                         toastr.success('You have successfully booked', "Success");
+                        $('#bookingfinal').modal('hide');
+                        $('#bookingmodal').modal('hide');
 
                     } else {
                         final_time = '';
@@ -410,6 +442,7 @@ use Carbon\Carbon;
     .card-img-top {
         width: 100%;
         height: auto;
+        border-radius: 100px !important;
     }
 
     .datearea {
@@ -447,18 +480,29 @@ use Carbon\Carbon;
         color: grey;
     }
 
+    .peachpuff {
+        color: peachpuff;
+    }
+
     #timesarea {
         margin: 10px 0;
     }
-    .black{
-        color: black
+
+    .black {
+        color: black;
+        color: darkgoldenrod;
     }
+
     .yellow {
-        background-color: yellow !important;
+        border-radius: 0px !important;
+        background: transparent !important;
+        color: white!important;
     }
 
     .patient_color {
-        background-color: yellow !important;
+        border-radius: 0px !important;
+        background: transparent !important;
+        color: white!important;
     }
 
     .modal .modal-dialog {
@@ -472,8 +516,30 @@ use Carbon\Carbon;
 
     .bold {
         font-weight: 900;
+        color: antiquewhite;
     }
-    .blue{
+
+    .blue {
         color: rgb(103, 153, 194);
+    }
+
+    .card-body {
+        background: #ffffd9;
+    }
+
+    .modal-content {
+        background-color: #000000ab !important;
+    }
+
+    .modal-header {
+        border-bottom: 0px !important;
+    }
+
+    h5 {
+        color: antiquewhite !important;
+    }
+
+    .margin5 {
+        margin: 5px;
     }
 </style>

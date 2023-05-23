@@ -237,9 +237,9 @@ class AppointmentAPIController extends Controller
             Notification::send($doctor->user, new NewAppointment($appointment));
 
         } catch (ValidationException $e) {
-            return $this->sendError(array_values($e->errors()));
+            // return $this->sendError(array_values($e->errors()));
         } catch (ValidatorException | ModelNotFoundException | Exception $e) {
-            return $this->sendError($e->getMessage());
+            // return $this->sendError($e->getMessage());
         }
 
         return $this->sendResponse($appointment->toArray(), __('lang.saved_successfully', ['operator' => __('lang.appointment')]));
@@ -275,7 +275,7 @@ class AppointmentAPIController extends Controller
             }
 
         } catch (ValidatorException $e) {
-            return $this->sendError($e->getMessage());
+            // return $this->sendError($e->getMessage());
         }
 
         return $this->sendResponse($appointment->toArray(), __('lang.saved_successfully', ['operator' => __('lang.appointment')]));
