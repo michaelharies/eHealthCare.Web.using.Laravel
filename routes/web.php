@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('uploads/store', 'UploadController@store')->name('medias.create');
     Route::get('users/profile', 'UserController@profile')->name('users.profile');
+    // Route::get('users/profile', 'UserController@profile')->name('users.profile');
 
     Route::get('/Home/{id}', 'HomeController@index');
     Route::get('/search', 'HomeController@searching');
@@ -83,6 +84,14 @@ Route::middleware('auth')->group(function () {
     Route::post('users/remove-media', 'UserController@removeMedia');
     Route::resource('users', 'UserController');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('dashboard_top', 'DashboardController@index_top')->name('dashboard_top');
+    Route::get('address_top', 'AddressController@index_top')->name('address_top');
+    Route::get('/patient_top', 'PatientController@index_top')->name('patient_top');
+    Route::get('appointment_top', 'AppointmentController@index_top')->name('appointment_top');
+
+
+
+
 
     Route::group(['middleware' => ['permission:medias']], function () {
         Route::get('uploads/all/{collection?}', 'UploadController@all');

@@ -5,6 +5,7 @@
 use Carbon\Carbon;
 @endphp
 <div class="homeBody">
+
     <div class="searcharea">
         <div class="row justifycontentspacearound">
             <div>
@@ -61,7 +62,8 @@ use Carbon\Carbon;
                         @endif
                         @if($protp->userimagepath)
                         <div class="col-md-2">
-                            <img class="card-img-top" src={{"http://127.0.0.1/".$protp->userimagepath}} alt="Card image">
+                            <img class="card-img-top" src={{"http://127.0.0.1/".$protp->userimagepath}} alt="Card
+                            image">
                         </div>
                         @endif
                         <div class="col-md-5">
@@ -79,13 +81,16 @@ use Carbon\Carbon;
                                 @endphp
 
                                 <div>
-                                    <p class="textgrey"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$strtp}}</p>
+                                    <p class="textgrey"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$strtp}}
+                                    </p>
                                 </div>
                                 <div>
-                                    <p class="textgrey"><i class="fa fa-user-md" aria-hidden="true"></i> {{$doctortp}}</p>
+                                    <p class="textgrey"><i class="fa fa-user-md" aria-hidden="true"></i> {{$doctortp}}
+                                    </p>
                                 </div>
                                 <div>
-                                    <p class="textgrey"><i class="fa fa-hospital" aria-hidden="true"></i> {{$clinictp}}</p>
+                                    <p class="textgrey"><i class="fa fa-hospital" aria-hidden="true"></i> {{$clinictp}}
+                                    </p>
                                 </div>
                                 @if($hint)
                                 <div>
@@ -100,11 +105,8 @@ use Carbon\Carbon;
                             </div>
                             <div class="row justifycontentspacearound">
                                 <p class="textgrey">Do you cancel a promise with this doctor?</p>
-                                <form action="{{action('HomeController@promisedelete')}}" method = "get">
-                                    <input name="id" value={{explode('/', $protp->id)[0]}} style="display:none"/>
-                                    <button class="btn yellow" type="submit"><i class="fa fa-trash fontsize-40"
-                                            aria-hidden="true"></i></button>
-                                </form>
+                                <button class="btn yellow" data-toggle="modal" data-target="#deletemodal"
+                                    type="button"><i class="fa fa-trash fontsize-40" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </div>
@@ -112,6 +114,27 @@ use Carbon\Carbon;
             </div>
             @endif
             @endforeach
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="{{action('HomeController@promisedelete')}}" method="get">
+                        @csrf
+                        <input name="id" value={{explode('/', $protp->id)[0]}} style="display:none"/>
+                        <div class="row justyright">
+                            <div class="col-md-6 justifycontentspacearound margin-top-10">
+                                Do you really delete?
+                            </div>
+                            <button type="submit" class="btn btn-danger margin5">Delete</button>
+                            <button type="button" class="btn btn-secondary margin5" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -237,10 +260,34 @@ use Carbon\Carbon;
         width: 60px;
         background-color: rgb(236, 236, 50) !important;
     }
-    .textblue{
+
+    .textblue {
         color: rgb(78, 78, 235);
     }
-    .textgrey{
+
+    .textgrey {
         color: grey;
+    }
+
+    .modal-body {
+        margin-top: 20px;
+        ;
+    }
+
+    .justyright {
+        justify-content: right;
+    }
+
+    .margin5 {
+        margin: 10px;
+        ;
+    }
+
+    .margin-top-10 {
+        margin-top: 15px;
+    }
+
+    .modal-dialog {
+        top: 300px;
     }
 </style>

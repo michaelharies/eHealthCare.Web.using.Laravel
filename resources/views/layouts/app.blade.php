@@ -78,14 +78,40 @@
         </ul>
     </nav>
 
-    <!-- Left side column. contains the logo and sidebar -->
-@include('layouts.sidebar')
-<!-- Content Wrapper. Contains page content -->
+    @if(auth()->user()->memberid == 'patientid')
+        @include('layouts.sidebar')
+    @endif
+    <!-- <aside class="main-sidebar sidebar-{{setting('theme_contrast')}}-{{setting('theme_color')}} shadow">
+        <a href="{{url('dashboard')}}" class="brand-link border-bottom-0 text-light navbar-yellow {{setting('bg-white')}}" style="background: yellow">
+            <img src="{{$app_logo ?? ''}}" alt="{{setting('app_name')}}" class="brand-image" style="margin-left: 1.4rem">
+        </a>
+        <div class="sidebar">
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('patients*') ? 'active' : '' }}" href="{!! route('patients.index') !!}"><i class="nav-icon fas fa-procedures"></i><p>Patient</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('appointments*') ? 'active' : '' }}" href="{!! route('appointments.index') !!}">
+                                    <i class="nav-icon fas fa-calendar-check"></i><p>Appointment</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('addresses*') ? 'active' : '' }}" href="{!! route('addresses.index') !!}">
+                                    <i class="nav-icon fas fa-map-marked-alt"></i><p>Address</p></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('faqs*') ? 'active' : '' }}" href="{!! route('faqs.index') !!}">
+                                    <i class="nav-icon fas fa-life-ring"></i>
+                                <p>FAQ</p></a>
+                        </li>
+                </ul>
+            </nav>
+        </div>
+    </aside> -->
     <div class="content-wrapper">
         @yield('content')
     </div>
 
-    <!-- Main Footer -->
     <footer class="main-footer border-0 shadow-sm">
         <div class="float-sm-right d-none d-sm-block">
             <b>Version</b> {{implode('.',str_split(substr(config('installer.currentVersion','v100'),1,3)))}}
@@ -95,7 +121,6 @@
 
 </div>
 
-<!-- jQuery -->
 <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 
 <script src="{{asset('vendor/bootstrap-v4-rtl/js/bootstrap.bundle.min.js')}}"></script>
@@ -182,5 +207,12 @@
 
 .navbar-dark .navbar-nav .nav-link {
     color: rgb(129 122 122 / 75%);
-}
+    }
+.sidebar{
+        background: yellow;
+    }
+.sidebar-dark-purple .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-purple .nav-sidebar>.nav-item>.nav-link.active {
+        background-color: #9d4399;
+        color: #fff;
+    }
 </style>

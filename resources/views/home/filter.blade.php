@@ -61,22 +61,24 @@ use Carbon\Carbon;
                                     </div>
                                     @if($doctor->address)
                                     <div>
-                                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{$doctor->address[0]}}
+                                        <p class="grey"><i class="fa fa-map-marker blue" aria-hidden="true"></i>
+                                            {{$doctor->address[0]}}
                                         </p>
                                     </div>
                                     @endif
                                     @if($doctor->review)
                                     <div>
-                                        <p>Reviews({{count($doctor->review)}})</p>
+                                        <p class="grey">Reviews({{count($doctor->review)}})</p>
                                     </div>
                                     @endif
                                     @if(!$doctor->review)
                                     <div>
-                                        <p><i class="fa fa-star" aria-hidden="true"></i> Reviews(0)</p>
+                                        <p class="grey"><i class="fa fa-star blue" aria-hidden="true"></i> Reviews(0)</p>
                                     </div>
                                     @endif
                                     <div>
-                                        <u id={{$doctor->id}}>view detail</u>
+                                        <u class="grey" data-toggle="modal"
+                                            data-target="#showdetail{{$doctor->id}}">view detail</u>
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +94,57 @@ use Carbon\Carbon;
                                     </div>
                             </div>
                             @endfor
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="showdetail{{$doctor->id}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row justifycontentspacearound">
+                            <div class="col-md-5"></div>
+                            @if(!$doctor->userimagepath)
+                            <div class="col-md-2">
+                                <img class="card-img-top" src="{{asset('images/default.png')}}" alt="Card image">
+                            </div>
+                            @endif
+                            @if($doctor->userimagepath)
+                            <div class="col-md-2">
+                                <img class="card-img-top" src={{"http://127.0.0.1/".$doctor->userimagepath}}
+                                alt="Card image">
+                            </div>
+                            @endif
+                            <div class="col-md-5"></div>
+                            <h3 class="grey">{{explode('"', $doctor->name)[3]}}</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="bold">Specialisties</p>
+                                <p class="grey">{{$doctor->specialist}}</p>
+                                <br />
+                                <p class="bold">My addresses</p>
+                                @if($doctor->address)
+                                @foreach($doctor->address as $tp)
+                                <p class="grey">{{$tp}}</p>
+                                @endforeach
+                                @endif
+                                <br />
+                                <p class="bold">My reviews({{count($doctor->review)}})</p>
+                                @foreach($doctor->review as $tp)
+                                <p class="gery">{{$tp}}</p>
+                                @endforeach
+                                <br />
+                            </div>
+                            <div class="col-md-6">
+                                <p class="bold">Experiences</p>
+                                @foreach($doctor->experience as $tp)
+                                <p class="black">{{explode('"', $tp->title)[3]}}</p>
+                                <p class="grey">{{explode('<', explode('>', $tp->description)[1])[0]}}</p>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,6 +188,10 @@ use Carbon\Carbon;
                     <div class="row" id="doctoraddress">
                     </div>
                     <div class="row margin-bottom-10" id="patientaddress">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="text" class="form-control" id="hint"
+                            placeholder="What's the reason for your visit?">
                     </div>
                     <div class="row" style="justify-content: end;"><button id="bookingbutton" data-dismiss="modal"
                             class="btn btn-warning">Book
@@ -291,6 +348,7 @@ use Carbon\Carbon;
                         doctor_id: final_doctor_id,
                         patient_id: final_patient_id,
                         address_id: final_address_id,
+                        hint: $('#hint').val(),
                         _token: "{{ csrf_token() }}"
                     }
                 }).done(function (res) {
@@ -385,14 +443,6 @@ use Carbon\Carbon;
         width: 100%;
     }
 
-    .modal-content {
-        padding: 20px;
-        top: 100;
-        align-items: center !important;
-        width: 780px !important;
-        /* Adjust the width as per your requirement */
-    }
-
     .grey {
         color: grey;
     }
@@ -400,12 +450,30 @@ use Carbon\Carbon;
     #timesarea {
         margin: 10px 0;
     }
-
+    .black{
+        color: black
+    }
     .yellow {
         background-color: yellow !important;
     }
 
     .patient_color {
         background-color: yellow !important;
+    }
+
+    .modal .modal-dialog {
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .modal-body {
+        margin: 50px;
+    }
+
+    .bold {
+        font-weight: 900;
+    }
+    .blue{
+        color: rgb(103, 153, 194);
     }
 </style>

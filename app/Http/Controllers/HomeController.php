@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $promise = DB::table('appointments')
-            ->where('user_id', $request->id)->get();
+            ->where('user_id', $request->id)->orderby('created_at', 'DESC')->get();
             $cnt = 0;
             $cn = 0;
             $promisetp = [];
@@ -68,7 +68,7 @@ class HomeController extends Controller
             foreach($specialisties as $tp){
                 $specialist[$cnt] = DB::table('specialities')
                     ->where('id', $tp->speciality_id)->get();
-                $rlt = $rlt.' '.$specialist[$cnt][0]->name;
+                $rlt = $rlt.$specialist[$cnt][0]->name.', ';
                 $cnt ++;
             }
             $filter[$cn]->specialist = $rlt;
@@ -82,7 +82,7 @@ class HomeController extends Controller
             $cnt = 0;
             $rlt = [];
             foreach($addresses as $tp){
-                $rlt[$cnt] = $tp->description.': '.$tp->address;
+                $rlt[$cnt] = $tp->description.' - '.$tp->address;
                 $cnt ++;
             }
             $filter[$cn]->address = $rlt;
@@ -96,7 +96,9 @@ class HomeController extends Controller
             $cnt = 0;
             $rlt = [];
             foreach($experiences as $tp){
-                $rlt[$cnt] = $tp->title.':'.$tp->description;
+                $rlt[$cnt] = new \stdClass();
+                $rlt[$cnt]->title = $tp->title;
+                $rlt[$cnt]->description = $tp->description;
                 $cnt ++;
             }
             $filter[$cn]->experience = $rlt;
@@ -190,7 +192,98 @@ class HomeController extends Controller
     }
 
     function booknow(Request $request){
+        $table = DB::table('appointments');
+
+        $timeString = $request->time;
+        $timeFormat = 'Y-m-d H:i:s';
+        $time = \DateTime::createFromFormat($timeFormat, $timeString);
+        $appointment_at = $time->format('Y-m-d H:i:s');
+
+        $doctor_data = DB::table('doctors')->where('id', $request->doctor_id)->first();
+        $clinic_id = $doctor_data->clinic_id;
         
+        $doctor = [
+            "id" => $doctor_data->id,
+            "name" => explode('"', $doctor_data->name)[3],
+            "price" => $doctor_data->price,
+            "discount_price" => $doctor_data->discount_price,
+            "enable_appointment" => $doctor_data->enable_appointment,
+        ];
+        $doctor = json_encode($doctor);
+
+        $clinic_data = DB::table('clinics')->where('id', $clinic_id)->first();
+        $clinic = [
+            'id' => $clinic_data->id,
+            'name' => explode('"', $clinic_data->name)[3],
+            'phone_number' => $clinic_data->phone_number,
+            'mobile_number' => $clinic_data->mobile_number,
+        ];
+        $clinic = json_encode($clinic);
+
+        $patient_data = DB::table('patients')->where('id', $request->patient_id)->first();
+        $user_id = $patient_data-> user_id;
+        $patient = [
+            'id' => $patient_data->id,
+            'first_name' => $patient_data->first_name,
+            'last_name' => $patient_data->last_name,
+            'gender' => $patient_data->gender,
+            'age' => $patient_data->age,
+            'height' => $patient_data->height,
+            'weight' => $patient_data->weight,
+        ];
+        $patient = json_encode($patient);
+
+        $address_data = DB::table('addresses')->where('id', $request->address_id)->first();
+        $address = [
+            'id' => $address_data->id,
+            'description' => $address_data->description,
+            'address' => $address_data->address,
+            'latitude' => $address_data->latitude,
+            'longitude' => $address_data->longitude,
+        ];
+        $address = json_encode($address);
+
+        $taxes_ids = DB::table('clinic_taxes')->where('clinic_id', $clinic_id)->get();
+        $taxes = [];
+        $cnt = 0;
+        foreach($taxes_ids as $tax_id){
+            $tp_tax_data = DB::table('taxes')->where('id', $tax_id->tax_id)->first();
+            $tp_tax = [
+                'id' => $tp_tax_data->id,
+                'name' => $tp_tax_data->name,
+                'value' => $tp_tax_data->value,
+                'type' => $tp_tax_data->type,
+            ];
+            $taxes[$cnt ++] = $tp_tax;
+        }
+        $taxes = json_encode($taxes);
+
+        $data = [
+            'clinic' => $clinic,
+            'doctor' => $doctor,
+            'patient' => $patient,
+            'user_id' => $user_id,
+            'quantity' => 1,
+            'appointment_status_id' => 1,
+            'address' => $address,
+            'payment_id' => null,
+            'coupon' => null,
+            'taxes' => $taxes,
+            'appointment_at' => $appointment_at,
+            'start_at' => null,
+            'ends_at' => null,
+            'hint' => $request->hint,
+            'online' => 0,
+            'cancel' => 0,
+            "created_at"=> now(),
+            "updated_at"=> now()
+        ];
+
+        if($table->insert($data)){
+            return response()->json(['status'=>'success']);
+        }else{
+            return response()->json(['status'=>'failed']);
+        }
     }
 
 }
