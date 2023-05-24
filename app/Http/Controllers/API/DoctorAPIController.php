@@ -71,9 +71,9 @@ class DoctorAPIController extends Controller
         $doctors = $this->doctorRepository->all();
 
 
-        if (!$request->has('all')) {
-            $this->availableDoctors($doctors);
-        }
+        // if (!$request->has('all')) {
+        //     $this->availableDoctors($doctors);
+        // }
         $this->hasValidSubscription($request, $doctors);
         $this->orderByRating($request, $doctors);
         $this->limitOffset($request, $doctors);
