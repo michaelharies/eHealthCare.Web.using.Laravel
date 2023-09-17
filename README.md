@@ -8,24 +8,31 @@ https://comiere.com
 
 Features
 Patient Management: Easily manage and track patient information and history.
+
 Appointment Scheduling: Integrated calendar functionality for seamless appointment bookings.
+
 Medical Records: Secure and digitized storage of patient medical records.
+
 Billing & Payments: Automated billing and seamless online payment integration.
+
 ...
 Prerequisites
+
 PHP >= 7.1
 Composer
 MySQL (or any database supported by Laravel)
 Apache or Nginx server
 Installation
-
 cd eHealthCare
+
 Install Composer Dependencies:
 composer install
+
 Environment Configuration:
 Copy .env.example to .env and modify the environment variables to fit your configuration.
 
 cp .env.example .env
+
 Generate an App Key:
 php artisan key:generate
 Run Migrations:
