@@ -1,61 +1,49 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Comiere eHealthCare
+Comiere eHealthCare is a state-of-the-art web-based healthcare platform developed using the powerful Laravel framework. With an emphasis on user experience and seamless healthcare management, our platform bridges the gap between patients, healthcare providers, and medical professionals.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Comiere eHealthCare Dashboard Screenshot
+https://comiere.com
+![Screenshot_10](https://github.com/stuartgregorysharpe/eHealthCare.Web.using.Laravel/assets/137684294/7ad2a5cd-5248-40f0-9e26-a0f60825520a)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Features
+Patient Management: Easily manage and track patient information and history.
+Appointment Scheduling: Integrated calendar functionality for seamless appointment bookings.
+Medical Records: Secure and digitized storage of patient medical records.
+Billing & Payments: Automated billing and seamless online payment integration.
+...
+Prerequisites
+PHP >= 7.1
+Composer
+MySQL (or any database supported by Laravel)
+Apache or Nginx server
+Installation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+cd eHealthCare
+Install Composer Dependencies:
+composer install
+Environment Configuration:
+Copy .env.example to .env and modify the environment variables to fit your configuration.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+cp .env.example .env
+Generate an App Key:
+php artisan key:generate
+Run Migrations:
 
-## Learning Laravel
+This will create the necessary tables in your database.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+php artisan migrate
+Serve your Application:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+php artisan serve
+Visit http://127.0.0.1:8000 in your web browser to access the Comiere eHealthCare platform.
 
-## Laravel Sponsors
+Contributing
+Contributions are welcome! Please read our CONTRIBUTING.md for guidelines on how to proceed.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Security Vulnerabilities
+If you discover a security vulnerability within Comiere eHealthCare, please send an email to security@comiere.com. All security vulnerabilities will be promptly addressed.
 
-### Premium Partners
+License
+Comiere eHealthCare is licensed under the MIT license. See the LICENSE.md file for more details.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
